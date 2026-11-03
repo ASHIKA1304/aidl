@@ -108,10 +108,10 @@ public class ColorService extends Service {
 ```
 
 ### Android Manifest.xml
-```xml
+
+```
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -121,66 +121,31 @@ public class ColorService extends Service {
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ColorServer">
-
-        <!-- AIDL Bound Service -->
-        <service
-            android:name=".ColorService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.colorserver.ColorService"/>
-            </intent-filter>
-        </service>
-
-        <!-- Launcher Activity -->
+        android:theme="@style/Theme.Server">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".ColorService"
+            android:exported="true"
+            android:enabled="true">
 
+            <intent-filter>
+                <action android:name="com.example.aidlserver.IColorService" />
+            </intent-filter>
+
+        </service>
     </application>
 
 </manifest>
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
 
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.ColorServer">
-
-        <!-- AIDL Bound Service -->
-        <service
-            android:name=".ColorService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.colorserver.ColorService"/>
-            </intent-filter>
-        </service>
-
-        <!-- Launcher Activity -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-
-    </application>
-
-</manifest>
 ```
 
 
