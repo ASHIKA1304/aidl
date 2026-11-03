@@ -27,7 +27,30 @@ Step 6: Display message give in MainActivity file(client/server).
 
 Step 7: Save and run the application.
 
+## PROGRAM:
+```
+/*
+Program to print the client/server services using AIDL”.
+Developed by: ASHIKA TR
+Registeration Number : 212224220011
+*/
+```
 
+## Client App
+        Intent intent = new Intent("com.example.server.IColorService");
+        intent.setPackage("com.example.server"); // tells Android which app
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (isBound) {
+            unbindService(connection);
+            isBound = false;
+        }
+    }
+}
 ```
 
 activity_main.xml
@@ -82,38 +105,6 @@ AndroidManifest.xml
 </manifest>
 ```
 ## Server App
-
-MainActivity.java
-
-```java
-
-package com.example.server;
-
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-    }
-}
-```
-
-ColorService.java
 
 ```java
 package com.example.server;
