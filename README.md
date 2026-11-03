@@ -28,33 +28,148 @@ Step 6: Display message give in MainActivity file(client/server).
 Step 7: Save and run the application.
 
 ## PROGRAM:
+### lColorService.aidl
 ```
-/*
-Program to print the client/server services using AIDL”.
-Developed by:
-Registeration Number :
-*/
+package com.example.colorserver;
+
+interface IColorService {
+    int getRandomColor();
+}
 ```
-## aidlClient app
+## aidlserver app
 ### MainActivity.java
 ```java
-package com.example.colorclient;
+package com.example.colorserver;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.colorserver.IColorService;
 
 public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    private Button colorButton;
-    private IColorService colorService;
-    private boolean isBound = false;
+        TextView tv = findViewById(R.id.textView);
+        tv.setText("Color Server Running");
+    }
+}
+```
+### ColorService.java
+```java
+package com.example.colorserver;
+
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView tv = findViewById(R.id.textView);
+        tv.setText("Color Server Running");
+    }
+}
+```
+### Android Manifest.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ColorServer">
+
+        <!-- AIDL Bound Service -->
+        <service
+            android:name=".ColorService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.colorserver.ColorService"/>
+            </intent-filter>
+        </service>
+
+        <!-- Launcher Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ColorServer">
+
+        <!-- AIDL Bound Service -->
+        <service
+            android:name=".ColorService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.colorserver.ColorService"/>
+            </intent-filter>
+        </service>
+
+        <!-- Launcher Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
+```
+
+
+### lColorService.aidl
+```
+package com.example.colorserver;
+
+interface IColorService {
+    int getRandomColor();
+}
+```
+## OUTPUT
+
+### aidlserver App
+<img width="2875" height="1764" alt="image" src="https://github.com/user-attachments/assets/9f207bab-ae0b-447e-85d7-a8cba2e25173" />
+### aidlclient app
+<img width="2878" height="1760" alt="image" src="https://github.com/user-attachments/assets/09b2781e-fe01-410c-aada-b62c6eb41722" />
+
+<img width="2879" height="1799" alt="image" src="https://github.com/user-attachments/assets/3e1f32b2-205a-4dbd-ba83-6cd6cf969434" />
+
+
+
+## RESULT
+Thus a Simple Android Application to create a AIDL interface and communicate the process between client and server using AIDL interface in Android Studio is developed and executed successfully.
