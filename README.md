@@ -71,24 +71,42 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 ### ColorService.java
-```java
-package com.example.colorserver;
 
-import android.os.Bundle;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+```
+package com.example.server;
 
-public class MainActivity extends AppCompatActivity {
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.graphics.Color;
+import java.util.Random;
+
+public class ColorService extends Service {
+
+    private final IColorService.Stub binder = new IColorService.Stub() {
+
+        @Override
+        public int getRandomColor() throws RemoteException {
+
+            Random random = new Random();
+
+            int red = random.nextInt(256);
+            int green = random.nextInt(256);
+            int blue = random.nextInt(256);
+
+            return Color.rgb(red, green, blue);
+        }
+    };
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        TextView tv = findViewById(R.id.textView);
-        tv.setText("Color Server Running");
+    public IBinder onBind(Intent intent) {
+        return binder;
     }
 }
+
 ```
+
 ### Android Manifest.xml
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
