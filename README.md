@@ -30,31 +30,45 @@ Step 7: Save and run the application.
 ## PROGRAM:
 ### lColorService.aidl
 ```
-package com.example.colorserver;
+// IColorService.aidl
+package com.example.server;
+
+// Declare any non-default types here with import statements
 
 interface IColorService {
+
     int getRandomColor();
 }
+
 ```
 ## aidlserver app
 ### MainActivity.java
-```java
-package com.example.colorserver;
+```
+package com.example.server;
 
 import android.os.Bundle;
-import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
-        TextView tv = findViewById(R.id.textView);
-        tv.setText("Color Server Running");
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 }
+
 ```
 ### ColorService.java
 ```java
