@@ -35,11 +35,26 @@ Developed by:
 Registeration Number :
 */
 ```
+## aidlClient app
+### MainActivity.java
+```java
+package com.example.colorclient;
 
-## OUTPUT
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.colorserver.IColorService;
 
+public class MainActivity extends AppCompatActivity {
 
-
-
-## RESULT
-Thus a Simple Android Application to create a AIDL interface and communicate the process between client and server using AIDL interface in Android Studio is developed and executed successfully.
+    private Button colorButton;
+    private IColorService colorService;
+    private boolean isBound = false;
